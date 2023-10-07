@@ -19,7 +19,7 @@ const Wrapper = styled.div`
 
 const StyledNav = styled.div`
     display: flex;
-    gap: 10px;
+    gap: 15px;
 `;
 
 const NavLink = styled(Link)`
