@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Center from "./Center";
 import Button from "./Button";
 import Cart from "./icons/Cart";
+import ButtonLink from "./ButtonLink";
 
 const Bg = styled.div`
     background-color: #222;
@@ -51,8 +52,8 @@ const Featured = ({product}) => {
                             <Title>{product?.title}</Title>
                             <Desc>{product?.description}</Desc>
                             <ButtonsWrapper>
-                                <Button value={product?._id} white outline  size="l">Read more</Button>
-                                <Button value={product?._id} primary size="l"><Cart width='16px'/> Add to cart</Button>
+                                <ButtonLink href={"/products/"+product._id} white={1} outline={1} size="l">Read more </ButtonLink>
+                                <Button value={product?._id} primary={1} size="l"><Cart width='16px'/> Add to cart</Button>
                             </ButtonsWrapper>
                         </div>
                     </Column>

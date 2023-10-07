@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 
-const StyledButton = styled.button`
-    border: 0;
+export const ButtonStyle = css`
+border: 0;
     padding: 5px 15px;
     border-radius: 5px;
     cursor: pointer;
@@ -9,6 +9,7 @@ const StyledButton = styled.button`
     gap: 5px;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
     ${props => props.white && !props.outline && css`
         background-color: #FFF;
         color: #000;
@@ -27,6 +28,10 @@ const StyledButton = styled.button`
         font-size: 1.2rem;
         padding: 10px 20px;
     `}
+`
+
+const StyledButton = styled.button`
+    ${ButtonStyle}
 `;
 
 const Button = ({children, ...props}) => {
