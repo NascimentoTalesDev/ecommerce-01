@@ -12,6 +12,7 @@ const Bg = styled.div`
 const Title = styled.h1`
     margin: 0;
     font-weight: normal;
+    font-size: 3rem;
 `;
 
 const Desc = styled.p`
@@ -36,26 +37,27 @@ const Column = styled.div`
 
 const ButtonsWrapper = styled.div`
   display: flex;
-  gap: 5px;
+  gap: 10px;
+  margin-top: 25px;
 `;
 
-const Featured = () => {
+const Featured = ({product}) => {
     return (
         <Bg>
             <Center>
                 <ColumnsWrapper>
                     <Column>
                         <div>
-                            <Title>Tithjdfhgdsfghbdafhgble</Title>
-                            <Desc>Descrdfgvdfagbvdagvbdagvadfbvdfabd  ger gerq ger g er ger ger gerg edrfg edas grdsa ge gaedrrfgaegeiption</Desc>
+                            <Title>{product?.title}</Title>
+                            <Desc>{product?.description}</Desc>
                             <ButtonsWrapper>
-                                <Button white outline size="l">Read more</Button>
-                                <Button primary size="l"><Cart width='20px'/> Add to cart</Button>
+                                <Button value={product?._id} white outline  size="l">Read more</Button>
+                                <Button value={product?._id} primary size="l"><Cart width='16px'/> Add to cart</Button>
                             </ButtonsWrapper>
                         </div>
                     </Column>
                     <Column>
-                        <img src="https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/notebooks/inspiron-notebooks/inspiron-15-3511/media-gallery/in3511nt_cnb_05000ff090_bk-fpr.psd?fmt=png-alpha&pscan=auto&scl=1&hei=402&wid=606&qlt=100,1&resMode=sharp2&size=606,402&chrss=full"></img>
+                        <img src={product?.images[0]}></img>
                     </Column>
                 </ColumnsWrapper>
             </Center>

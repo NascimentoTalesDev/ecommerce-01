@@ -5,6 +5,10 @@ const StyledButton = styled.button`
     padding: 5px 15px;
     border-radius: 5px;
     cursor: pointer;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
     ${props => props.white && !props.outline && css`
         background-color: #FFF;
         color: #000;
