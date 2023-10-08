@@ -53,7 +53,7 @@ const Featured = ({product}) => {
                             <Desc>{product?.description}</Desc>
                             <ButtonsWrapper>
                                 <ButtonLink href={"/products/"+product._id} white={1} outline={1} size="l">Read more </ButtonLink>
-                                <Button value={product?._id} primary={1} size="l"><Cart width='16px'/> Add to cart</Button>
+                                <Button value={product?._id}  white={1} size="l"><Cart width='16px'/> Add to cart</Button>
                             </ButtonsWrapper>
                         </div>
                     </Column>

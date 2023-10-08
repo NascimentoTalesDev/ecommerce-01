@@ -1,7 +1,8 @@
+import { primary } from "@/lib/colors";
 import styled, { css } from "styled-components";
 
 export const ButtonStyle = css`
-border: 0;
+    border: 0;
     padding: 5px 15px;
     border-radius: 5px;
     cursor: pointer;
@@ -10,6 +11,7 @@ border: 0;
     justify-content: center;
     align-items: center;
     text-decoration: none;
+    font-weight: bold;
     ${props => props.white && !props.outline && css`
         background-color: #FFF;
         color: #000;
@@ -19,10 +21,16 @@ border: 0;
         border: 1px solid #FFF;
         color: #FFF;
     `}
-    ${props => props.primary  && css`
-        background-color: #5542F6;
-        border: 1px solid #5542F6;
+   ${props => props.primary && props.outline && css`
+        background-color: ${primary};
+        border: 1px solid ${primary};
         color: #FFF;
+    `}
+    ${props => props.primary && !props.outline && css`
+        background-color: transparent;
+        border: 1px solid ${primary};
+        color: ${primary};
+        font-weight: 500;
     `}
     ${props => props.size === "l" && css`
         font-size: 1.2rem;
@@ -34,10 +42,10 @@ const StyledButton = styled.button`
     ${ButtonStyle}
 `;
 
-const Button = ({children, ...props}) => {
+const Button = ({ children, ...props }) => {
     return (
         <StyledButton {...props}>{children}</StyledButton>
     );
 }
- 
+
 export default Button;
