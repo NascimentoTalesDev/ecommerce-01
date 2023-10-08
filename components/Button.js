@@ -12,6 +12,21 @@ export const ButtonStyle = css`
     align-items: center;
     text-decoration: none;
     
+    ${props => props.block && css `
+        display: block;
+        width: 100%;
+    `}
+
+    ${props => props.black && !props.outline && css`
+        background-color: #000;
+        color: #fff;
+    `}
+    ${props => props.black && props.outline && css`
+        background-color: transparent;
+        border: 1px solid #FFF;
+        color: #FFF;
+    `}
+
     ${props => props.white && !props.outline && css`
         background-color: #FFF;
         color: #000;
@@ -21,6 +36,7 @@ export const ButtonStyle = css`
         border: 1px solid #FFF;
         color: #FFF;
     `}
+
    ${props => props.primary && props.outline && css`
         background-color: ${primary};
         border: 1px solid ${primary};
@@ -32,6 +48,7 @@ export const ButtonStyle = css`
         color: ${primary};
         font-weight: 500;
     `}
+
     ${props => props.size === "l" && css`
         font-size: 1.2rem;
         padding: 10px 20px;
