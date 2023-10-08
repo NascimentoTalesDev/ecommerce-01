@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components"
 import { Poppins } from 'next/font/google'
+import CartContextProvider from "@/context/CartContext";
 
 const font = Poppins({ 
   subsets: ['latin'],
@@ -18,7 +19,9 @@ export default function App({ Component, pageProps }) {
   return(
     <div className={`${font.className}`}>
       <GlobalStyles />
-      <Component {...pageProps} />
+      <CartContextProvider>
+        <Component {...pageProps} />
+      </CartContextProvider>
     </div>
   ) 
 }

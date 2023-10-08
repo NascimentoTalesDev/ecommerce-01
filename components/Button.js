@@ -11,7 +11,7 @@ export const ButtonStyle = css`
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    font-weight: bold;
+    
     ${props => props.white && !props.outline && css`
         background-color: #FFF;
         color: #000;
