@@ -48,7 +48,7 @@ export const ButtonStyle = css`
         color: ${primary};
         font-weight: 500;
     `}
-
+    
     ${props => props.size === "l" && css`
         font-size: 1.2rem;
         padding: 10px 20px;

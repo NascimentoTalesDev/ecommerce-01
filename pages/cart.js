@@ -1,9 +1,11 @@
 import Button from "@/components/Button";
 import Center from "@/components/Center";
 import Header from "@/components/Header";
+import Input from "@/components/Input";
 import Table from "@/components/Table";
 import { CartContext } from "@/context/CartContext";
 import axios from "axios";
+import { set } from "mongoose";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 
@@ -18,11 +20,11 @@ const Box = styled.div`
     background-color: #fff;
     border-radius: 10px;
     padding: 30px;
-    `;
+`;
 
 const ProductInfoCell = styled.td`
     padding-top: 10px;
-    `;
+`;
 
 const ProductImageBox = styled.div`
     width: 100px;
@@ -47,12 +49,23 @@ const QuantityLabel = styled.span`
 const QuantityProduct = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
-`
+`;
+
+const CityHolder = styled.div`
+    display: flex;
+    gap: 5px;
+`;
 
 export default function CartPage() {
     const { cartProducts, addProduct, removeProduct } = useContext(CartContext)
     const [products, setProducts] = useState([])
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [city, setCity] = useState('')
+    const [postalCode, setPostalCode] = useState('')
+    const [streetAddress, setStreetAddress] = useState('')
+    const [country, setCountry] = useState('')
+
 
     useEffect(() => {
         if (cartProducts.length > 0) {
@@ -60,6 +73,8 @@ export default function CartPage() {
                 .then(response => {
                     setProducts(response.data);
                 })
+        }else{
+            setProducts([])
         }
     }, [cartProducts])
 
@@ -131,9 +146,18 @@ export default function CartPage() {
                     {!!products?.length > 0 && (
                         <Box>
                             <h2>Order Information</h2>
-                            <input type="text" placeholder="Address"></input>
-                            <input type="text" placeholder="Address 2"></input>
-                            <Button block={1} black={1}>Continue to payment</Button>
+                            <form method="POST" action="/api/checkout" >
+                                <Input type="text" placeholder="Name"  value={name} name="name" onChange={() => setName()} />
+                                <Input type="text" placeholder="Email" value={email} name="email" onChange={(ev) => setEmail(ev.target.value)} />
+                                <CityHolder>
+                                    <Input type="text" placeholder="City" value={city} name="city" onChange={(ev) => setCity(ev.target.value)}/>
+                                    <Input type="text" placeholder="Postal Code" value={postalCode} name="postalCode" onChange={(ev) => setPostalCode(ev.target.value)}/>
+                                </CityHolder>
+                                <Input type="text" placeholder="Street Address" value={streetAddress} name="streetAddress" onChange={(ev) => setStreetAddress(ev.target.value)}/>
+                                <Input type="text" placeholder="Country" value={country} name="country" onChange={(ev) => setCountry(ev.target.value)}/>
+                                <input type="hidden" name="products" value={cartProducts.join(",")} ></input>
+                                <Button block={1} black={1} type="submit">Continue to payment</Button>
+                            </form>
                         </Box>
                     )}
                 </ColumnsWrapper>

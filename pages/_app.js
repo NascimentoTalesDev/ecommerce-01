@@ -8,10 +8,14 @@ const font = Poppins({
 })
 
 const GlobalStyles = createGlobalStyle`
-  body{
-    background-color: #eee;
+  *{
     padding:0;
     margin:0;
+    box-sizing: border-box;
+  }
+  body{
+    background-color: #eee;
+
   }
 `;
 
