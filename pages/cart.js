@@ -57,7 +57,7 @@ const CityHolder = styled.div`
 `;
 
 export default function CartPage() {
-    const { cartProducts, setCartProducts, addProduct, removeProduct } = useContext(CartContext)
+    const { cartProducts, clearCart, addProduct, removeProduct } = useContext(CartContext)
     const [products, setProducts] = useState([])
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -66,10 +66,6 @@ export default function CartPage() {
     const [streetAddress, setStreetAddress] = useState('')
     const [country, setCountry] = useState('')
     const [isSuccess, setIsSuccess] = useState(false)
-
-    function clearCart() {
-        setProducts([])
-    }
 
     useEffect(() => {
         if (cartProducts.length > 0) {
@@ -187,7 +183,7 @@ export default function CartPage() {
                     {!!products?.length > 0 && (
                         <Box>
                             <h2>Order Information</h2>
-                            <Input type="text" placeholder="Name"  value={name} name="name" onChange={() => setName()} />
+                            <Input type="text" placeholder="Name"  value={name} name="name" onChange={(ev) => setName(ev.target.value)} />
                             <Input type="text" placeholder="Email" value={email} name="email" onChange={(ev) => setEmail(ev.target.value)} />
                             <CityHolder>
                                 <Input type="text" placeholder="City" value={city} name="city" onChange={(ev) => setCity(ev.target.value)}/>

@@ -10,6 +10,7 @@ export default async function handler(req,res) {
   }
 
   const {name, email, city, postalCode, streetAddress, country, cartProducts} = req.body;
+
   await mongooseConnect();
   const productsIds = cartProducts;
   const uniqueIds = [...new Set(productsIds)];
