@@ -22,7 +22,7 @@ const WhiteBox = styled(Link)`
     }
 `;
 
-const Title =styled(Link)`
+const Title = styled(Link)`
     font-size: 0.8rem;
     fot-weight: normal;
     margin: 0;

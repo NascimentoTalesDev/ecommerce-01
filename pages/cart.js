@@ -13,9 +13,9 @@ const ColumnsWrapper = styled.div`
     grid-template-columns: 1.2fr .8fr;
     gap: 40px;
     margin-top: 40px;
-    `;
+`;
 
-const Box = styled.div`
+export const Box = styled.div`
     background-color: #fff;
     border-radius: 10px;
     padding: 30px;
