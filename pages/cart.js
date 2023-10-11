@@ -5,7 +5,6 @@ import Input from "@/components/Input";
 import Table from "@/components/Table";
 import { CartContext } from "@/context/CartContext";
 import axios from "axios";
-import { set } from "mongoose";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 
