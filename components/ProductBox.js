@@ -41,7 +41,7 @@ const PriceRow = styled.div`
     margin-top: 2px;
 `;
 
-const Price = styled.div`
+export const Price = styled.div`
     font-size: 1.5rem;
     font-weight: 700;
 `;

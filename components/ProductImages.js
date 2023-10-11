@@ -34,7 +34,7 @@ const ImageButton = styled.div`
     ${props => props.active ? `
         border-color: #aaa;
     ` 
-    : 
+    :
     `
         border-color: transparent !important;
         opacity: 0.7

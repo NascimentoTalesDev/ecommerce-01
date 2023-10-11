@@ -4,7 +4,7 @@ import { ProductsGrid, Title } from "./NewProducts";
 
 
 const AllProducts = ({products}) => {
-    console.log("All Products", products );
+
     return (
         <Center>
             <Title>All Products</Title>
