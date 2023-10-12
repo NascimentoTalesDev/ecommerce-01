@@ -1,21 +1,22 @@
 import styled from "styled-components";
 
-const StyledInput = styled.input`
+const StyledTextArea = styled.textarea`
     width: 100%;
     padding: 8px;
     margin-bottom: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1rem;
+    resize: none;
     &:focus{
         outline-color: blue;    
     }
 `;
 
-const Input = (props) => {
+const TextArea = (props) => {
     return (
-        <StyledInput {...props}/>
+        <StyledTextArea {...props}/>
     );
 }
  
-export default Input;
+export default TextArea;

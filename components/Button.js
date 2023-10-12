@@ -53,6 +53,17 @@ export const ButtonStyle = css`
         font-size: 1.2rem;
         padding: 10px 20px;
     `}
+
+    ${props => props.isLoadingReview  ? 
+        `
+            cursor: wait;
+            opacity: 0.8
+        ` 
+        : 
+        `
+            cursor: pointer
+        `
+    }
 `
 
 const StyledButton = styled.button`

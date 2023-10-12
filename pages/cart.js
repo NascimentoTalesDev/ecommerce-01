@@ -81,9 +81,12 @@ export default function CartPage() {
         if (typeof window === 'undefined') {
           return;
         }
-        if (window?.location.href.includes('success')) {
-          setIsSuccess(true);
-          clearCart();
+        if (window?.location.href.includes('cart?success=1')) {
+            setIsSuccess(true);
+            setTimeout(() => {
+                
+                clearCart();
+            }, 10);
         }
       }, []);
 
@@ -102,6 +105,7 @@ export default function CartPage() {
         
         if (response.data.url) {
             window.location = response.data.url;
+
         }
     }
 
@@ -112,6 +116,7 @@ export default function CartPage() {
     }
 
     if (isSuccess) {
+
         return(
             <>
                 <Header />
