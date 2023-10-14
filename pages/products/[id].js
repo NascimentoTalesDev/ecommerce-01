@@ -16,6 +16,7 @@ import TextArea from "@/components/TextArea";
 import axios from "axios";
 import { primary } from "@/lib/colors";
 import { useRouter } from "next/router";
+
 const ColWrapper = styled.div`
     display: grid;
     grid-template-columns: 300px 1fr;
@@ -72,6 +73,8 @@ const Time = styled.div`
 
 `;
 
+
+
 export default function ProductPage({ product }) {
 
     const { addProduct } = useContext(CartContext)
@@ -81,6 +84,7 @@ export default function ProductPage({ product }) {
     const [hover, setHover] = useState(null)
     const [isLoadingReview, setIsLoadingReview] = useState(false)
 
+    
     const router = useRouter();
     const { id } = router.query;
 
@@ -96,6 +100,8 @@ export default function ProductPage({ product }) {
         setRating(null)
         setIsLoadingReview(false)
     }
+
+
 
     return (
         <>
@@ -164,11 +170,10 @@ export default function ProductPage({ product }) {
                             <InfoReviewsBox>
                                 <StarContainerDate>
                                     <StarContainer>
-
-                                    {[...Array(review.rating)].map(star => {
+                                        {[...Array(review.rating)].map(star => {
                                         
-                                        return (
-                                            <Star width="20px" color={primary} />
+                                            return (
+                                                <Star width="20px" color={primary} />
                                             )
                                         })}
                                     </StarContainer>

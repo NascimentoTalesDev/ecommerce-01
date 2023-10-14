@@ -16,6 +16,9 @@ export const ButtonStyle = css`
         display: block;
         width: 100%;
     `}
+    ${props => props.paddingY && css `
+        padding: 10px 20px;  
+    `}
 
     ${props => props.black && !props.outline && css`
         background-color: #000;

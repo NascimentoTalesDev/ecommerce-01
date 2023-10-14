@@ -7,6 +7,7 @@ const BigImageContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: none;
 `;
 const BigImage = styled.img`
     max-width: 100%;
@@ -47,15 +48,51 @@ const Image = styled.img`
 
 const ProductImages = ({ images }) => {
     const [activeImage, setActiveImage] = useState(images?.[0])
+    const [magnifyStile, setMagnifyStile] = useState({backgroundImage: `url("${activeImage}")`})
+
+    const Mag = styled.div`
+        position: absolute;
+        z-index: 10;
+        pointer-events: none;
+        width: 300px;
+        display: none;
+        height: 300px;
+        border: 2px solid #fff;
+        background-size: 200%;
+        background-position: center;
+        border-radius: 50px;
+    `;
+
+    function handleImage(image) {
+        setActiveImage(image)
+        setMagnifyStile({backgroundImage: `url("${image}")`})
+    }
+
+    function handleMouseMove (e) {
+        const {offsetX, offsetY} = e.nativeEvent;
+        const {offsetWidth, offsetHeight} = e.target;
+
+        const xPercentage = (offsetX / offsetWidth) * 100;
+        const yPercentage = (offsetY / offsetHeight) * 100;
+
+        setMagnifyStile((prev) => ({...prev,display: "block", top: `${offsetY -60}px`, left: `${offsetX - 120}px`, backgroundPosition: `${xPercentage}% ${yPercentage}%`}))
+    }
+
+    function handleMouseLeave() {
+        setMagnifyStile((prev) => ({...prev, display: "none"}))
+    }
+
     return (
         <>
             <BigImageContainer>
-                <BigImage src={activeImage} draggable={false} /> 
+                <BigImage onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}  src={activeImage} draggable={false} />
+                <Mag style={magnifyStile}></Mag>
+ 
             </BigImageContainer>
             <ImagesButtons>
                 {images.map((image, i) => (
-                    <ImageButton key={image} active={image === activeImage} onClick={() => setActiveImage(image)}>
-                        <Image draggable={false} src={image} />
+                    <ImageButton key={image} active={image === activeImage} onClick={() => handleImage(image)}>
+                        <Image draggable={false} alt={image} src={image} />
                     </ImageButton>
                 ))}
             </ImagesButtons>

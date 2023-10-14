@@ -19,6 +19,7 @@ export const Box = styled.div`
     background-color: #fff;
     border-radius: 10px;
     padding: 30px;
+    position: relative;
 `;
 
 const ProductInfoCell = styled.td`
@@ -50,7 +51,7 @@ const QuantityProduct = styled.div`
     align-items: center;
 `;
 
-const CityHolder = styled.div`
+export const CityHolder = styled.div`
     display: flex;
     gap: 5px;
 `;
