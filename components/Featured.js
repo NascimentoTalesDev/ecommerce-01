@@ -3,8 +3,11 @@ import Center from "./Center";
 import Button from "./Button";
 import Cart from "./icons/Cart";
 import ButtonLink from "./ButtonLink";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "@/context/UserContext";
+import Auth from "@/pages/auth";
 import { CartContext } from "@/context/CartContext";
+import useCurrentUser from "@/hooks/useCurrentUser";
 
 const Bg = styled.div`
     background-color: #222;
@@ -45,14 +48,21 @@ const ButtonsWrapper = styled.div`
 `;
 
 const Featured = ({product}) => {
+    const { isLoggedIn, modalUser} = useContext(UserContext)
+    const {data: user} = useCurrentUser()
     const { addProduct } = useContext(CartContext)
-    
+
     function addFeaturedToCart() {
+        isLoggedIn()
+        console.log(user);
         addProduct(product._id)
     }
-    
+
     return (
         <Bg>
+            {modalUser && (
+                <Auth />
+            )}
             <Center>
                 <ColumnsWrapper>
                     <Column>

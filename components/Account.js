@@ -1,3 +1,4 @@
+import { signOut } from 'next-auth/react';
 import { Box, CityHolder } from "@/pages/cart";
 import Center from "./Center";
 import styled from "styled-components";
@@ -6,6 +7,8 @@ import Button from "./Button";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/context/CartContext";
 import axios from "axios";
+import { useRouter } from 'next/router';
+import useCurrentUser from '@/hooks/useCurrentUser';
 
 const ColumnsWrapper = styled.div`
     display: grid;
@@ -23,7 +26,7 @@ const Logout = styled.div`
 const Account = () => {
     const { cartProducts } = useContext(CartContext)
     const [products, setProducts] = useState([])
-
+    
     useEffect(() => {
         if (cartProducts.length > 0) {
             axios.post("/api/cart", { ids: cartProducts })
@@ -33,11 +36,13 @@ const Account = () => {
         }
     }, [])
 
+
     return (
         <>
             <Center>
                 <ColumnsWrapper>
                     <Box>
+                        {user?.email}
                         Order
                         {!products?.length && (
                             <div>Your cart is empty!</div>
@@ -48,7 +53,7 @@ const Account = () => {
                     </Box>
                     <Box>
                         <h2>Account details</h2>
-                            <Input type="text" placeholder="Name"  name="name" onChange={(ev) => {}} />
+                            <Input type="text"  placeholder="Name"  name="name" onChange={(ev) => {}} />
                             <Input type="text" placeholder="Email" name="email" onChange={(ev) => {}} />
                             <CityHolder>
                                 <Input type="text" placeholder="City" name="city" onChange={(ev) => {}}/>
