@@ -2,12 +2,14 @@ import styled from "styled-components";
 import Button from "./Button";
 import Link from "next/link";
 import { CartContext } from "@/context/CartContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import { UserContext } from "@/context/UserContext";
+import HeartIcon from "./icons/HeartIcon";
+import axios from "axios";
 
 const ProductWrapper = styled.div`
-
+    position: relative;
 `;
 
 const WhiteBox = styled(Link)`
@@ -48,12 +50,22 @@ export const Price = styled.div`
     font-weight: 700;
 `;
 
-const ProductBox = ({_id, title, price, description, images}) => {
+const LikeContainer = styled.span`
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5px;
+    width: 20px;
+    cursor: pointer;
+`;
+
+const ProductBox = ({_id, title, price, images}) => {
     const url = "/products/"+_id 
 
     const { data: user } = useCurrentUser()
     const { isLoggedIn } = useContext(UserContext)
     const { addProduct } = useContext(CartContext)
+    const [liked, setLiked] = useState(false)
 
     function addFeaturedToCart() {
         if(!user){
@@ -63,8 +75,20 @@ const ProductBox = ({_id, title, price, description, images}) => {
         addProduct(_id)
     }
 
+    async function toggleLike() {
+        setLiked(true)
+        let idProd = _id
+        let idUser = user._id
+
+        let data = { idProd, idUser };
+        await axios.post("/api/user", data)
+    }
+
     return (
         <ProductWrapper>
+                <LikeContainer >
+                    <HeartIcon liked={liked} onClick={toggleLike} value={_id} />
+                </LikeContainer>
             <WhiteBox href={url}>
                 <img src={images[0]} /> 
             </WhiteBox>

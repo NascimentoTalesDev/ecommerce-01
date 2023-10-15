@@ -18,6 +18,7 @@ import { primary } from "@/lib/colors";
 import { useRouter } from "next/router";
 import { UserContext } from "@/context/UserContext";
 import useCurrentUser from "@/hooks/useCurrentUser";
+import Auth from "../auth";
 
 const ColWrapper = styled.div`
     display: grid;
@@ -77,7 +78,7 @@ const Time = styled.div`
 
 export default function ProductPage({ product }) {
     const { data: user } = useCurrentUser()
-    const { isLoggedIn } = useContext(UserContext)
+    const { isLoggedIn, modalUser } = useContext(UserContext)
     const { addProduct } = useContext(CartContext)
 
     const [rating, setRating] = useState(null)
@@ -105,7 +106,6 @@ export default function ProductPage({ product }) {
         let data = { idProduct, titleReview, textReview, rating }
         let res = await axios.post("/api/reviews", data)
         window.location.reload()
-        console.log(res);
         setTitleReview("")
         setTextReview("")
         setRating(null)
@@ -116,6 +116,9 @@ export default function ProductPage({ product }) {
 
     return (
         <>
+            {modalUser && (
+                <Auth />
+            )}
             <Header />
             <Center>
                 <ColWrapper>

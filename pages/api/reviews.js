@@ -27,7 +27,6 @@ export default async function handle(req, res) {
             res.json({message: "Review added successfully!"})
         }
 
-        console.log(prod);
         res.json("OK")
     }
 }
