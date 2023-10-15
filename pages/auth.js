@@ -94,6 +94,17 @@ const Auth = () => {
         setVariant((currentVariant) => currentVariant === 'login' ? "register" : "login")
     },[])
 
+    const logInGoogle = useCallback( async () => {
+        try {
+            await signIn('google', {
+                redirect: false,
+                callbackUrl: "/"
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    },[])
+
     const login = useCallback( async () => { 
 
         try {
@@ -105,7 +116,6 @@ const Auth = () => {
             })
             .then(Response => {
                 console.log(Response);
-                setUser("Tales")
                 setModalUser(false)
             })   
         } catch (error) {            
@@ -126,13 +136,13 @@ const Auth = () => {
         } catch (error) {
             console.log(error);
         }
-    }, [email, name, password])
+    }, [email, name, password, login])
     
     return (
         <Div>
             <Container>
                 <ContainerButton>
-                    <CloseButton>
+                    <CloseButton onClick={() => setModalUser(false)}>
                         <CloseIcon />
                     </CloseButton>
                 </ContainerButton>

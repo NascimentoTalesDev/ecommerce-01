@@ -6,19 +6,18 @@ const UserContextProvider = ({children}) => {
     const [modalUser, setModalUser] = useState(false)
     const [user, setUser] = useState(false)
 
-    async function isLoggedIn() {
+    function isLoggedIn(user) {
         
         if (!user) {
             setModalUser(true)
             return user
         }
-
         return user
     }
     
         
     return (
-        <UserContext.Provider value={{isLoggedIn, modalUser, setModalUser, setUser, user}}>
+        <UserContext.Provider value={{isLoggedIn, modalUser, setModalUser, setUser}}>
             {children}
         </UserContext.Provider>
     );
