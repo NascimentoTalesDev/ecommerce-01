@@ -3,6 +3,8 @@ import Button from "./Button";
 import Link from "next/link";
 import { CartContext } from "@/context/CartContext";
 import { useContext } from "react";
+import useCurrentUser from "@/hooks/useCurrentUser";
+import { UserContext } from "@/context/UserContext";
 
 const ProductWrapper = styled.div`
 
@@ -49,7 +51,17 @@ export const Price = styled.div`
 const ProductBox = ({_id, title, price, description, images}) => {
     const url = "/products/"+_id 
 
+    const { data: user } = useCurrentUser()
+    const { isLoggedIn } = useContext(UserContext)
     const { addProduct } = useContext(CartContext)
+
+    function addFeaturedToCart() {
+        if(!user){
+            isLoggedIn()
+            return
+        }
+        addProduct(_id)
+    }
 
     return (
         <ProductWrapper>
@@ -62,7 +74,7 @@ const ProductBox = ({_id, title, price, description, images}) => {
                     <Price>
                         ${price}
                     </Price>
-                    <Button onClick={() => addProduct(_id)} primary={1} >Add to cart</Button>
+                    <Button onClick={addFeaturedToCart} value={_id} primary={1} >Add to cart</Button>
                 </PriceRow>
             </ProductInfoBox>
         </ProductWrapper>

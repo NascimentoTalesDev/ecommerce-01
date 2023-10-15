@@ -4,20 +4,13 @@ export const UserContext = createContext({})
 
 const UserContextProvider = ({children}) => {
     const [modalUser, setModalUser] = useState(false)
-    const [user, setUser] = useState(false)
-
-    function isLoggedIn(user) {
-        
-        if (!user) {
-            setModalUser(true)
-            return user
-        }
-        return user
+    
+    function isLoggedIn() {
+        setModalUser(true)
     }
     
-        
     return (
-        <UserContext.Provider value={{isLoggedIn, modalUser, setModalUser, setUser}}>
+        <UserContext.Provider value={{isLoggedIn, modalUser, setModalUser}}>
             {children}
         </UserContext.Provider>
     );

@@ -26,23 +26,25 @@ const Logout = styled.div`
 const Account = () => {
     const { cartProducts } = useContext(CartContext)
     const [products, setProducts] = useState([])
-    
+    const {data: user} = useCurrentUser() 
+    const router = useRouter()
+
     useEffect(() => {
         if (cartProducts.length > 0) {
-            axios.post("/api/cart", { ids: cartProducts })
-                .then(response => {
+            axios.post("/api/cart", { ids: cartProducts }).then(response => {
                     setProducts(response.data);
-                })
+            })
         }
     }, [])
 
-
+    function logout() {
+        signOut()
+    }
     return (
         <>
             <Center>
                 <ColumnsWrapper>
                     <Box>
-                        {user?.email}
                         Order
                         {!products?.length && (
                             <div>Your cart is empty!</div>
@@ -53,8 +55,8 @@ const Account = () => {
                     </Box>
                     <Box>
                         <h2>Account details</h2>
-                            <Input type="text"  placeholder="Name"  name="name" onChange={(ev) => {}} />
-                            <Input type="text" placeholder="Email" name="email" onChange={(ev) => {}} />
+                            <Input type="text" value={user?.name} placeholder="Name"  name="name" onChange={(ev) => {}} />
+                            <Input type="text" value={user?.email} placeholder="Email" name="email" onChange={(ev) => {}} />
                             <CityHolder>
                                 <Input type="text" placeholder="City" name="city" onChange={(ev) => {}}/>
                                 <Input type="text" placeholder="Postal Code" name="postalCode" onChange={(ev) => {}}/>
@@ -63,7 +65,7 @@ const Account = () => {
                             <Input type="text" placeholder="Country" name="country" onChange={(ev) => {}}/>
                             <Button paddingY={1} block={1} black={1} type="submit">Save</Button>                      
                             <Logout>
-                                <Button paddingY={1} primary={1} outline={1} type="submit">Logout</Button>                      
+                                <Button onClick={logout} paddingY={1} primary={1} outline={1} type="submit">Logout</Button>                      
                             </Logout>
                     </Box>
                 </ColumnsWrapper>

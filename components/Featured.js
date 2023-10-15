@@ -48,20 +48,20 @@ const ButtonsWrapper = styled.div`
 `;
 
 const Featured = ({product}) => {
+    const { data: user } = useCurrentUser()
     const { isLoggedIn, modalUser} = useContext(UserContext)
-    const {data: user} = useCurrentUser() 
     const { addProduct } = useContext(CartContext)
     
     function addFeaturedToCart() {
         if(!user){
             isLoggedIn()
+            return
         }
         addProduct(product._id)
     }
 
     return (
         <Bg>
-            {user?.name}
             {modalUser && (
                 <Auth />
             )}

@@ -16,6 +16,8 @@ import TextArea from "@/components/TextArea";
 import axios from "axios";
 import { primary } from "@/lib/colors";
 import { useRouter } from "next/router";
+import { UserContext } from "@/context/UserContext";
+import useCurrentUser from "@/hooks/useCurrentUser";
 
 const ColWrapper = styled.div`
     display: grid;
@@ -73,11 +75,11 @@ const Time = styled.div`
 
 `;
 
-
-
 export default function ProductPage({ product }) {
-
+    const { data: user } = useCurrentUser()
+    const { isLoggedIn } = useContext(UserContext)
     const { addProduct } = useContext(CartContext)
+
     const [rating, setRating] = useState(null)
     const [titleReview, setTitleReview] = useState("")
     const [textReview, setTextReview] = useState("")
@@ -87,6 +89,15 @@ export default function ProductPage({ product }) {
     
     const router = useRouter();
     const { id } = router.query;
+
+    function addFeaturedToCart() {
+        if(!user){
+            isLoggedIn()
+            return
+        }
+        addProduct(product._id)
+    }
+
 
     async function postReviews() {
         setIsLoadingReview(true)
@@ -119,7 +130,7 @@ export default function ProductPage({ product }) {
                                 ${product.price}
                             </Price>
                             <div>
-                                <Button onClick={() => addProduct(product._id)} primary={1} outline={1} >Add to cart</Button>
+                                <Button onClick={addFeaturedToCart} primary={1} outline={1} >Add to cart</Button>
                             </div>
                         </PriceRow>
                     </div>
