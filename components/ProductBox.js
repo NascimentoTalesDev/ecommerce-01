@@ -81,7 +81,7 @@ const ProductBox = ({_id, title, price, images}) => {
         let idUser = user._id
 
         let data = { idProd, idUser };
-        await axios.post("/api/user", data)
+        await axios.post("/api/like", data)
     }
 
     return (
