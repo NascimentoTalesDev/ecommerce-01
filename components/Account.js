@@ -3,12 +3,13 @@ import { Box, CityHolder } from "@/pages/cart";
 import Center from "./Center";
 import styled from "styled-components";
 import Input from "./Input";
-import Button from "./Button";
 import { useContext, useEffect, useState } from "react";
 import { CartContext } from "@/context/CartContext";
 import axios from "axios";
 import { useRouter } from 'next/router';
 import useCurrentUser from '@/hooks/useCurrentUser';
+import Button from './Button';
+import { internalMutate } from 'swr/_internal';
 
 const ColumnsWrapper = styled.div`
     display: grid;
@@ -22,36 +23,68 @@ const Logout = styled.div`
     margin-top: 10px;
     padding-top: 10px;
 `;
+const ButtonsContainer = styled.div`
+    display: flex;
+    gap: 10px;
+    margin-top: 0px;
+`;
+const ButtonList = styled.button`
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    ${props => props.active ? 
+        `
+        border-color: black;
+        transition: scale(1.8);
+        ` 
+        :
+        `
+        border-color: black;
+        opacity: 0.8;
+    `}
+    
+`;
 
 const Account = () => {
     const { cartProducts } = useContext(CartContext)
-    const [products, setProducts] = useState([])
     const {data: user} = useCurrentUser() 
     const router = useRouter()
-
-    useEffect(() => {
-        if (cartProducts.length > 0) {
-            axios.post("/api/cart", { ids: cartProducts }).then(response => {
-                    setProducts(response.data);
-            })
-        }
-    }, [])
-
+    const [active, setActive] = useState(false)
+    const [order, setOrder] = useState(false)
+    const [orderList, setOrderList] = useState(false)
+    const [wish, setWish] = useState(false)
+    const [wishList, setWishList] = useState(false)
+    
     function logout() {
         signOut()
     }
+    useEffect(() => {
+        console.log(user.wishlist[0]);
+    }, [])
+
     return (
         <>
             <Center>
                 <ColumnsWrapper>
                     <Box>
-                        Order
-                        {!products?.length && (
-                            <div>Your cart is empty!</div>
-                        )}
-                        {products.length > 0 && products.map(product => (
-                            <div>{product?.title}</div> 
-                        ))}
+                        <ButtonsContainer>
+                            <ButtonList onClick={() => {setOrder(true); setWish(false)}} active={order} >Order</ButtonList>
+                            <ButtonList onClick={() => {setWish(true); setOrder(false)}} active={wish} >WishList</ButtonList>
+                        </ButtonsContainer>
+                        {wish ? (
+                        `
+                        
+                        
+                        `)
+                        : 
+                        (`
+                        
+                        
+                        `)}
+
                     </Box>
                     <Box>
                         <h2>Account details</h2>
