@@ -1,16 +1,18 @@
+import { Product } from "@/models/Product";
 import { User } from "@/models/User";
 
 export default async function handler(req, res) {
     let { method } = req; 
-    const { idUser, idProd } = req.body
     
     if(method === "POST") {
+
+        const { idUser, idProd } = req.body
         let user = await User.findOne({_id: idUser})
-    
+        
         if(user){
 
             let existWish = user.wishlist.filter(item => item === idProd);
-            console.log(existWish);
+            //console.log(existWish);
             if (existWish.length >= 1) {
                 console.log("REMOVIDO");
                 let all = user.wishlist.filter(item => item !== idProd);
@@ -32,8 +34,4 @@ export default async function handler(req, res) {
         }
     }
 
-    if (method === "GET") {
-
-        res.json(idUser)
-    }
 }

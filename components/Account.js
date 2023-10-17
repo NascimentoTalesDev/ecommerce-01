@@ -31,7 +31,7 @@ const ButtonsContainer = styled.div`
 const ButtonList = styled.button`
     border: none;
     background-color: transparent;
-    border-bottom: 1px solid transparent;
+    border-bottom: 2px solid transparent;
     font-size: 1.2rem;
     font-weight: bold;
     cursor: pointer;
@@ -42,47 +42,39 @@ const ButtonList = styled.button`
         ` 
         :
         `
-        border-color: black;
+        border-color: gray;
         opacity: 0.8;
-    `}
+        `
+    }
     
 `;
 
 const Account = () => {
-    const { cartProducts } = useContext(CartContext)
-    const {data: user} = useCurrentUser() 
-    const router = useRouter()
-    const [active, setActive] = useState(false)
-    const [order, setOrder] = useState(false)
-    const [orderList, setOrderList] = useState(false)
+    const { data: user } = useCurrentUser()
+    const [order, setOrder] = useState(true)
     const [wish, setWish] = useState(false)
-    const [wishList, setWishList] = useState(false)
+
     
     function logout() {
         signOut()
     }
-    useEffect(() => {
-        console.log(user.wishlist[0]);
-    }, [])
 
     return (
-        <>
             <Center>
                 <ColumnsWrapper>
                     <Box>
                         <ButtonsContainer>
                             <ButtonList onClick={() => {setOrder(true); setWish(false)}} active={order} >Order</ButtonList>
-                            <ButtonList onClick={() => {setWish(true); setOrder(false)}} active={wish} >WishList</ButtonList>
+                            <ButtonList onClick={() => {setWish(true); setOrder(false)}} active={wish} >Wishlist</ButtonList>
                         </ButtonsContainer>
+
                         {wish ? (
-                        `
-                        
-                        
+                            `
+                            wish
                         `)
                         : 
                         (`
-                        
-                        
+                            Order
                         `)}
 
                     </Box>
@@ -103,7 +95,6 @@ const Account = () => {
                     </Box>
                 </ColumnsWrapper>
             </Center>
-        </>
     );
 }
  
